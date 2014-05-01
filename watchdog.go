@@ -42,7 +42,7 @@ func main() {
 		for {
 			select {
 			case <-timer.C:
-				cmd := exec.Command(command[0], command...)
+				cmd := exec.Command(command[0], command[1:]...)
 				cmd.Stdout = os.Stdout
 				cmd.Stderr = os.Stderr
 				cmd.Stdin = os.Stdin
