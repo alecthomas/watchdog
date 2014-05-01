@@ -9,7 +9,6 @@ import (
 
 	"github.com/alecthomas/flagutil"
 	"github.com/alecthomas/pflag"
-	"github.com/howeyc/fsnotify"
 )
 
 var (
@@ -28,10 +27,11 @@ func main() {
 
 	command := pflag.Args()
 
-	watcher, err := fsnotify.NewWatcher()
+	watcher, err := NewRecurisveWatcher(*pathFlag)
 	if err != nil {
 		flagutil.Fatalf("failed to start fsnotify: %s", err)
 	}
+	go watcher.Run()
 
 	done := make(chan bool)
 
